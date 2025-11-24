@@ -20,7 +20,7 @@ if (isset($_POST['register'])){
         $_SESSION['active_form'] = 'register';
 
     } else {
-        $conn->query("INSERT INTO users(fullname, email, role, password) VALUES ('$fullname', '$email', '$role', '$password'");
+        $conn->query("INSERT INTO users(fullname, email, role, password) VALUES ('$fullname', '$email', '$role', '$password')");
     }
 
     header("Location: index.php");  // redirect user to main page.

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>m & m Stores</title>
+
+    <!--- icons link  -->
+   <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css"    rel="stylesheet"/>
+    <link rel="stylesheet" href="main.css">
+
+
+    <style>
+    /* --- Logout Button Style --- */
+#header-icons {
+    display: flex; /* To align logout and cart icons */
+    align-items: center;
+    gap: 15px; /* Spacing between the icons */
+}
+
+#logout-btn {
+    font-size: 30px;
+    color: #e35f26; /* Using your accent color */
+    cursor: pointer;
+    text-decoration: none;
+}
+/* Adjust #cart-icon if needed, but the flex on #header-icons handles alignment */
+
+/* --- Pagination Styles --- */
+.pagination {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.page-link, .page-num {
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    background: #fff;
+    color: #333;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background-color 0.3s;
+}
+
+.page-link:hover, .page-num:hover:not(.active) {
+    background-color: #f0f0f0;
+}
+
+.page-num.active {
+    background-color: #e35f26;
+    color: #fff;
+    border-color: #e35f26;
+    font-weight: 600;
+}
+
+.page-numbers {
+    display: flex;
+    gap: 5px;
+}
+
+/* --- Detail View Modal Styles --- */
+.modal-overlay {
+    /* Hidden by default */
+    display: none;
+    position: fixed;
+    z-index: 1000; /* Above everything else */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7); /* Dark background with transparency */
+    backdrop-filter: blur(5px);
+}
+
+.modal-overlay.open {
+    display: flex; /* Use flex to easily center the modal content */
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    width: 90%;
+    max-width: 800px;
+    position: relative;
+    animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    color: #aaa;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.modal-body {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+#modal-product-image {
+    width: 50%;
+    max-height: 400px;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.modal-details {
+    width: 50%;
+}
+
+#modal-product-title {
+    font-size: 36px;
+    margin-top: 0;
+}
+
+#modal-product-price {
+    font-size: 24px;
+    color: #e35f26;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+#modal-product-description {
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.modal-colors h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+#color-options {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.color-swatch {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+.color-swatch:hover, .color-swatch.selected {
+    border-color: #333;
+}
+
+.btn-add-to-cart {
+    padding: 12px 25px;
+    background: #e35f26;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-add-to-cart:hover {
+    background-color: #cc5422;
+}
+
+/* Media Query for smaller screens */
+@media (max-width: 768px) {
+    .modal-body {
+        flex-direction: column;
+        align-items: center;
+    }
+    #modal-product-image, .modal-details {
+        width: 100%;
+    }
+    #modal-product-image {
+        margin-bottom: 20px;
+    }
+    .modal-content {
+        padding: 20px;
+    }
+}
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="" class="logo">m&m stores</a>
+        <div id="header-icons">
+            <a href="logout.php" id="logout-btn" title="Logout"><i class="ri-logout-box-line"></i></a>
+            <div id="cart-icon" title="Cart">
+                <i class="ri-shopping-bag-line"></i>
+                <span class="cart-item-count"></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- <div class="cart">
+        <h2 class="cart-title">Your Cart</h2>
+        <div class="cart-content">
+            <div class="cart-box">
+                <img src="asset/images/head_phone.jpg" alt="" class="cart-img">
+                <div class="cart-detail">
+                    <h2 class="cart-product-title">Ultra Sound Headphone</h2>
+                    <span class="cart-price">N100</span>
+                    <div class="cart-quantity">
+                        <button id="document">-</button>
+                        <span class="number">1</span>
+                        <button id="increment">+</button>
+                    </div>
+                </div>
+                <i class="ri-delete-bin-line cart-remove"></i>
+            </div>
+        </div>
+        <div class="total">
+            <div class="total-title">Total</div>
+            <div class="total-price">N0</div>
+        </div>
+        <button class="btn-buy">Buy Now</button>
+        <i class="ri-close-line" id="cart-close"></i>
+    </div> -->
+
+    <section class="shop">
+        <h1 class="section-title">
+            Shop Products
+        </h1>
+        <div class="product-content">
+            <div class="product-box product-item" data-product-id="1">
+                <div class="img-box">
+                    <img src="asset/images/head_phone.jpg" alt="" class="product-image-click">
+                </div>
+                <h2 class="product-title">Ultra Sound Headphone</h2>
+                <div class="price-and-cart">
+                    <span class="price">N100,000</span>
+                      <i class="ri-shopping-bag-line add-cart"></i>
+                </div>
+            </div>
+
+            <div class="product-box product-item" data-product-id="2">
+                <div class="img-box">
+                    <img src="asset/images/laptop.jpg" alt="" class="product-image-click">
+                </div>
+                <h2 class="product-title">Premium Laptop</h2>
+                <div class="price-and-cart">
+                    <span class="price">N500,000</span>
+                      <i class="ri-shopping-bag-line add-cart"></i>
+                </div>
+            </div>
+            </div>
+
+        <div class="pagination">
+            <button class="page-link" id="prev-page"><i class="ri-arrow-left-line"></i> Prev</button>
+            <div class="page-numbers">
+                <button class="page-num active">1</button>
+                <button class="page-num">2</button>
+                <button class="page-num">3</button>
+            </div>
+            <button class="page-link" id="next-page">Next <i class="ri-arrow-right-line"></i></button>
+        </div>
+    </section>
+
+    <div id="detail-modal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="modal-close-btn">&times;</span>
+            <div class="modal-body">
+                <img id="modal-product-image" src="" alt="Product Image">
+                <div class="modal-details">
+                    <h2 id="modal-product-title">Product Name</h2>
+                    <p id="modal-product-price">N0.00</p>
+                    <p id="modal-product-description">This is a short description of the product, highlighting its key features and benefits.</p>
+                    <div class="modal-colors">
+                        <h3>Available Colors:</h3>
+                        <div id="color-options">
+                            <span class="color-swatch" style="background-color: black;"></span>
+                            <span class="color-swatch" style="background-color: red;"></span>
+                            <span class="color-swatch" style="background-color: blue;"></span>
+                        </div>
+                    </div>
+                    <button class="btn-add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
