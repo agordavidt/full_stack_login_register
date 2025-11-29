@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Orders</title>
+    <link rel="stylesheet" href="admin.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css" rel="stylesheet"/>
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Admin Panel</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="index.php"><i class="ri-dashboard-line"></i> Dashboard</a>
+                <a href="products.php"><i class="ri-shopping-bag-line"></i> Products</a>
+                <a href="orders.php" class="active"><i class="ri-file-list-line"></i> Orders</a>
+                <a href="users.php"><i class="ri-user-line"></i> Users</a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="logout.php"><i class="ri-logout-box-line"></i> Logout</a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <nav class="navbar">
+                <span class="username">Welcome, <?php echo htmlspecialchars($_SESSION['admin_name']); ?></span>
+            </nav>
+
+            <!-- Orders Table -->
+            <div class="table-container">
+                <h2>All Orders</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>User</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#1001</td>
+                            <td>John Doe</td>
+                            <td>N150,000</td>
+                            <td class="status-completed">Completed</td>
+                            <td>2025-11-20</td>
+                            <td>
+                                <a href="update_order.php?id=1001" class="btn btn-primary">Update</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#1002</td>
+                            <td>Jane Smith</td>
+                            <td>N75,000</td>
+                            <td class="status-pending">Pending</td>
+                            <td>2025-11-21</td>
+                            <td>
+                                <a href="update_order.php?id=1002" class="btn btn-primary">Update</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

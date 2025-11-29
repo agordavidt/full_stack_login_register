@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Products</title>
+    <link rel="stylesheet" href="admin.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css" rel="stylesheet"/>
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Admin Panel</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="index.php"><i class="ri-dashboard-line"></i> Dashboard</a>
+                <a href="products.php" class="active"><i class="ri-shopping-bag-line"></i> Products</a>
+                <a href="orders.php"><i class="ri-file-list-line"></i> Orders</a>
+                <a href="users.php"><i class="ri-user-line"></i> Users</a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="logout.php"><i class="ri-logout-box-line"></i> Logout</a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <nav class="navbar">
+                <span class="username">Welcome, <?php echo htmlspecialchars($_SESSION['admin_name']); ?></span>
+            </nav>
+
+            <!-- Add Product Form -->
+            <div class="form-container">
+                <h2>Add New Product</h2>
+                <form action="add_product.php" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="name">Product Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea id="description" name="description" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Price (N)</label>
+                        <input type="number" id="price" name="price" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="stock">Stock Quantity</label>
+                        <input type="number" id="stock" name="stock" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="image">Product Image</label>
+                        <input type="file" id="image" name="image" accept="image/*" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Product</button>
+                </form>
+            </div>
+
+            <!-- Products Table -->
+            <div class="table-container">
+                <h2>All Products</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Ultra Sound Headphone</td>
+                            <td>N100,000</td>
+                            <td>15</td>
+                            <td>
+                                <a href="edit_product.php?id=1" class="btn btn-primary">Edit</a>
+                                <a href="delete_product.php?id=1" class="btn btn-danger">Delete</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Premium Laptop</td>
+                            <td>N500,000</td>
+                            <td>8</td>
+                            <td>
+                                <a href="edit_product.php?id=2" class="btn btn-primary">Edit</a>
+                                <a href="delete_product.php?id=2" class="btn btn-danger">Delete</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
