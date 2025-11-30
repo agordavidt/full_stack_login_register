@@ -36,7 +36,14 @@ header {
     font-weight: 600;    
 }
 
-#cart-icon {
+/* new styling for the logout button */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px; 
+}
+
+#cart-icon, #user-menu-icon {
     position: relative;
     display: flex;
     font-size: 30px;
@@ -60,6 +67,51 @@ header {
     justify-content: center;
     align-items: center;
     visibility: hidden;   /* hides element without removing it from the document flow */
+}
+
+
+/* logout   */
+.user-dropdown-menu {
+    position: absolute;
+    top: 100%; /* Position right below the icon */
+    right: 0;
+    min-width: 120px;
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+    overflow: hidden;
+    padding: 5px 0;
+    
+    /* Initially hide the dropdown */
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.2s ease-in-out;
+}
+
+/* Class to show the dropdown (added by JavaScript) */
+.user-dropdown-menu.active {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.logout-link {
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    white-space: nowrap; /* Prevents text wrap */
+}
+
+.logout-link:hover {
+    background: #f5f5f5;
+}
+
+.logout-link i {
+    margin-right: 8px;
+    vertical-align: middle;
 }
 
 .shop {
@@ -250,5 +302,8 @@ header {
 
     .cart {
         width: 100%;
+    }
+    .user-dropdown-menu {
+        right: 0; 
     }
 }

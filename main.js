@@ -151,3 +151,27 @@ buyNowButton.addEventListener("click", () => {
     alert("Thank yu for your purchase");
 })
 
+
+
+// logout functionality
+// Get the user icon and the dropdown menu
+const userIcon = document.querySelector("#user-menu-icon");
+const userDropdown = document.querySelector("#user-dropdown");
+
+// Toggle the 'active' class on click
+userIcon.addEventListener("click", (event) => {
+    // Stop the click from propagating to the window object
+    event.stopPropagation();
+    userDropdown.classList.toggle("active");
+});
+
+// Close the dropdown if the user clicks anywhere else on the page
+document.addEventListener("click", (event) => {
+    // Check if the clicked element is NOT the user icon AND NOT inside the dropdown
+    if (
+        !userIcon.contains(event.target) && 
+        !userDropdown.contains(event.target)
+    ) {
+        userDropdown.classList.remove("active");
+    }
+});
